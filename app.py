@@ -65,7 +65,7 @@ def main():
 
     with st.form("user_info_form",clear_on_submit=True):
         name = st.text_input("Name")
-        st.write("Welcome",name)
+        # st.write("Welcome",name)
         age  =st.number_input("Age" ,placeholder="insert the age",value=None)
         gender = st.radio("Gender", ["Male", "Female", "Other"])
         interest = st.text_area("Interest",placeholder=" You enter your requirments like salary religion gender work")
