@@ -6,6 +6,13 @@ import openai
 from openai import OpenAI
 import base64
 
+def safe_json_serialize(data):
+    try:
+        return json.dumps(data, default=str)  # Converts to JSON, with a default handler for non-serializable types
+    except TypeError as e:
+        print(f"Error in JSON serialization: {e}")
+        return "{}"
+
 def save_data_as_json(file_name):
     if os.path.exists(file_name):
         with open(file_name,"r") as file:
