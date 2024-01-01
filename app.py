@@ -8,8 +8,8 @@ from openai import OpenAI
 def save_data_as_json(file_name):
     if os.path.exists(file_name):
         with open(file_name,"r") as file:
-            return json.dumps(json.load(file))
-    return json.dumps([])
+             return json.load(file)
+    return []
 
 def call_gbt3(prompt):
     openai.api_key = os.environ['OPEN_API_KEY']
@@ -94,12 +94,16 @@ def main():
         # else:
         #     st.warning("Please fill in all required fields.")
 
-    with open("user_data.json", "r") as json_file:
-        st.download_button(
-            label="Download JSON file",
-            data=json_file,
-            file_name="user_data.json",
-            mime="application/json"
+    try:
+        with open("user_data.json", "r") as file:
+            user_data_json_content = file.read()
+    except FileNotFoundError:
+         user_data_json_content = "{}"
+    st.download_button(
+        label="Download JSON file",
+        data=user_data_json_content,
+        file_name="user_data.json",
+        mime="application/json"
         )
     user_prompt = st.text_input("Enter your prompt here")  
     button = st.button("Send Data to GPT-3.5") 
