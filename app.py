@@ -52,7 +52,7 @@ def main():
     st.session_state.user_data_json = str(save_data_as_json(file_name))
     user_data = save_data(file_name)
 
-    
+    st.json(user_data)
 
 
     with st.form("user_info_form",clear_on_submit=True):
