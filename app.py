@@ -4,6 +4,7 @@ from datetime import datetime
 import os
 import openai
 from openai import OpenAI
+import base64
 
 def save_data_as_json(file_name):
     if os.path.exists(file_name):
@@ -75,7 +76,10 @@ def main():
         # if name and age and gender and interest and work and salary and dob and religion and photo:
         submitted = st.form_submit_button("Submit")
         if submitted:
-                user_data = {
+            encoded_photo = base64.b64encode(photo.read()).decode() if photo else None
+            encoded_horoscope_chart = base64.b64encode(horoscope_chart.read()).decode() if horoscope_chart else None
+
+            user_data = {
                     "name": name,
                     "age":age,
                     "gender": gender,
@@ -84,13 +88,13 @@ def main():
                     "salary":salary,
                     "dob": dob.strftime("%Y-%m-%d"),
                     "religion": religion,
-                    "photo": photo.read(),
+                    "photo": encoded_photo,
                     "Planetary_position":Planetary_position,
                     "star":star,
-                    "horoscope_chart":horoscope_chart.read()    
+                    "horoscope_chart": encoded_horoscope_chart    
                 }
-                save_data(user_data)
-                st.success("Data Saved Successfully!")
+            save_data(user_data)
+            st.success("Data Saved Successfully!")
         # else:
         #     st.warning("Please fill in all required fields.")
 
