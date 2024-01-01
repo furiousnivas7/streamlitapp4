@@ -79,8 +79,9 @@ def main():
 
         # submit= st.form_submit_button("Submit")
 
-        all_fields_filled = all([name, age, gender, interest, work, salary, dob, religion, photo, planetary_position, star, horoscope_chart])
-        submitted = st.form_submit_button("Submit", disabled=not all_fields_filled)
+        all_fields_filled = all([name, age > 0, gender, interest, work, salary > 0, dob, religion, planetary_position, star])
+        st.write(f"All fields filled: {all_fields_filled}")
+        submitted = st.form_submit_button("Submit", disabled=not (all_fields_filled and photo and horoscope_chart))
         if submitted:
             encoded_photo = base64.b64encode(photo.read()).decode() if photo else None
             encoded_horoscope_chart = base64.b64encode(horoscope_chart.read()).decode() if horoscope_chart else None
