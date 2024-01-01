@@ -63,25 +63,24 @@ def main():
     # st.json(user_data)
 
 
-    with st.form("user_info_form",clear_on_submit=True):
-        name = st.text_input("Name")
-        # st.write("Welcome",name)
-        age  =st.number_input("Age" ,placeholder="insert the age",value=None)
-        gender = st.radio("Gender", ["Male", "Female", "Other"])
-        interest = st.text_area("Interest",placeholder=" You enter your requirments like salary religion gender work")
-        work =st.text_input("work" ,placeholder="goverment or private")
-        salary=st.number_input("salary",placeholder="enter your salary")
-        dob = st.date_input("Date of Birth")
-        religion = st.text_input("Religion")
-        photo = st.file_uploader("Upload a photo")
-        Planetary_position =st.text_input("Planetary_position" ,placeholder="enter your Planetary_position")
-        star =st.selectbox("star" ,('Ashwini','Bharani','Krittika','Rohini','Mrighasira','Ardra','Punarvasu','Pushya','Ashlesha','Magha','Purva Phalguni','Uttara Phalguni','Hasta','Chitra','Swati','Vishaka','Anuradha','Jyestha','Moola','Purvashada','Uttarashada','Sharavan','Dhanishta','Shatabisha','Purvabhadra','Uttarabhadra','Revat'))
-        horoscope_chart =st.file_uploader("Upload a photo of your horoscope_chart")
-        
+    with st.form("user_info_form"):
+        name = st.text_input("Name", key="name")
+        age = st.number_input("Age", key="age")
+        gender = st.radio("Gender", ["Male", "Female", "Other"], key="gender")
+        interest = st.text_area("Interest", key="interest")
+        work = st.text_input("Work", key="work")
+        salary = st.number_input("Salary", key="salary")
+        dob = st.date_input("Date of Birth", key="dob")
+        religion = st.text_input("Religion", key="religion")
+        photo = st.file_uploader("Upload a photo", key="photo")
+        planetary_position = st.text_input("Planetary Position", key="planetary_position")
+        star = st.selectbox("Star", options=['Ashwini','Bharani','Krittika','Rohini','Mrighasira','Ardra','Punarvasu','Pushya','Ashlesha','Magha','Purva Phalguni','Uttara Phalguni','Hasta','Chitra','Swati','Vishaka','Anuradha','Jyestha','Moola','Purvashada','Uttarashada','Sharavan','Dhanishta','Shatabisha','Purvabhadra','Uttarabhadra','Revat'], key="star")  # add all star names
+        horoscope_chart = st.file_uploader("Upload your horoscope chart", key="horoscope_chart")
+
         # submit= st.form_submit_button("Submit")
 
-        # if name and age and gender and interest and work and salary and dob and religion and photo:
-        submitted = st.form_submit_button("Submit")
+        all_fields_filled = all([name, age, gender, interest, work, salary, dob, religion, photo, planetary_position, star, horoscope_chart])
+        submitted = st.form_submit_button("Submit", disabled=not all_fields_filled)
         if submitted:
             encoded_photo = base64.b64encode(photo.read()).decode() if photo else None
             encoded_horoscope_chart = base64.b64encode(horoscope_chart.read()).decode() if horoscope_chart else None
@@ -96,7 +95,7 @@ def main():
                     "dob": dob.strftime("%Y-%m-%d"),
                     "religion": religion,
                     "photo": encoded_photo,
-                    "Planetary_position":Planetary_position,
+                    "Planetary_position":planetary_position,
                     "star":star,
                     "horoscope_chart": encoded_horoscope_chart    
                 }
