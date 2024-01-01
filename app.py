@@ -102,8 +102,8 @@ def main():
                 }
             save_data(user_data)
             st.success("Data Saved Successfully!")
-        # else:
-        #     st.warning("Please fill in all required fields.")
+        else:
+             st.warning("Please fill in all required fields.")
 
     try:
         with open("user_data.json", "r") as file:
