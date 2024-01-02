@@ -138,10 +138,7 @@ def main():
         st.success("Data Saved Successfully!") 
 
 
-def clear_form_fields():
-    """Clears all fields in st.session_state."""
-    for key in list(st.session_state.keys()):
-        del st.session_state[key]
+
 
 if __name__ == "__main__":
     main()
