@@ -112,7 +112,7 @@ def main():
             st.success("Data Saved Successfully!")
 
             clear_form_fields()
-            st.experimental_rerun() 
+            st.rerun() 
         else:
              st.warning("Please fill in all required fields.")
 
