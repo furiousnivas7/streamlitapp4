@@ -43,6 +43,12 @@ def save_data(data, filename="user_data.json"):
     with open(filename, "w") as file:
         json.dump(existing_data, file, indent=12)
 
+
+def clear_form_fields():
+    """Clears all fields in st.session_state."""
+    for key in list(st.session_state.keys()):
+        del st.session_state[key]
+
 # Streamlit app
 def main():
     if 'full_prompt' not in st.session_state:
@@ -136,7 +142,6 @@ def main():
         save_data(user_data)
         st.write("OpenAI Response:", gpt3_response)
         st.success("Data Saved Successfully!") 
-
 
 
 
