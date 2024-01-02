@@ -17,7 +17,8 @@ def save_data_as_json(file_name):
     if os.path.exists(file_name):
         with open(file_name,"r") as file:
              return json.load(file)
-    return []
+    else:
+        return []
 
 def call_gbt3(prompt):
     openai.api_key = os.environ['OPEN_API_KEY']
@@ -86,10 +87,27 @@ def main():
 
         # submit= st.form_submit_button("Submit")
 
-        all_fields_filled = all([name, age > 0, gender, interest, work, salary > 0, dob, religion, planetary_position, star])
-        if all_fields_filled:
-            st.write(f"All fields filled: {all_fields_filled}")
-        submitted = st.form_submit_button("Submit", disabled=not (all_fields_filled and photo is not None and horoscope_chart is not None))
+        photo_uploaded = photo is not None and photo.getvalue() != b''
+        horoscope_chart_uploaded = horoscope_chart is not None and horoscope_chart.getvalue() != b''
+
+        all_fields_filled = all([
+            name, 
+            age > 0, 
+            gender, 
+            interest, 
+            work, 
+            salary > 0, 
+            dob, 
+            religion, 
+            planetary_position, 
+            star,
+            photo_uploaded,
+            horoscope_chart_uploaded
+        ])
+
+        
+        st.write(f"All fields filled: {all_fields_filled}")
+        submitted = st.form_submit_button("Submit", disabled=not all_fields_filled)
 
         if submitted:
             encoded_photo = base64.b64encode(photo.read()).decode() if photo else None
@@ -112,11 +130,11 @@ def main():
             save_data(user_data)
             st.success("Data Saved Successfully!")
 
-            clear_form_fields()
-            st.rerun() 
+            
         else:
              st.warning("Please fill in all required fields.")
-
+    # clear_form_fields()
+    # st.rerun() 
     try:
         with open("user_data.json", "r") as file:
             user_data_json_content = file.read()
