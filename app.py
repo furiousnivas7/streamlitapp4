@@ -87,7 +87,8 @@ def main():
         # submit= st.form_submit_button("Submit")
 
         all_fields_filled = all([name, age > 0, gender, interest, work, salary > 0, dob, religion, planetary_position, star])
-        st.write(f"All fields filled: {all_fields_filled}")
+        if all_fields_filled:
+            st.write(f"All fields filled: {all_fields_filled}")
         submitted = st.form_submit_button("Submit", disabled=not (all_fields_filled and photo is not None and horoscope_chart is not None))
 
         if submitted:
