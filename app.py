@@ -103,6 +103,9 @@ def main():
                 }
             save_data(user_data)
             st.success("Data Saved Successfully!")
+
+            clear_form_fields()
+            st.experimental_rerun() 
         else:
              st.warning("Please fill in all required fields.")
 
@@ -133,6 +136,12 @@ def main():
         save_data(user_data)
         st.write("OpenAI Response:", gpt3_response)
         st.success("Data Saved Successfully!") 
+
+
+def clear_form_fields():
+    """Clears all fields in st.session_state."""
+    for key in list(st.session_state.keys()):
+        del st.session_state[key]
 
 if __name__ == "__main__":
     main()
