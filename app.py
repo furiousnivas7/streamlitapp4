@@ -80,10 +80,9 @@ def main():
         dob = st.date_input("Date of Birth", key="dob")
         religion = st.text_input("Religion", key="religion")
         photo = st.file_uploader("Upload a photo", key="photo")
-        planetary_position = st.text_input("Planetary Position", key="planetary_position")
         horoscope_chart = st.file_uploader("Upload your horoscope chart", key="horoscope_chart")
         star = st.selectbox("Star", options=['Ashwini','Bharani','Krittika','Rohini','Mrighasira','Ardra','Punarvasu','Pushya','Ashlesha','Magha','Purva Phalguni','Uttara Phalguni','Hasta','Chitra','Swati','Vishaka','Anuradha','Jyestha','Moola','Purvashada','Uttarashada','Sharavan','Dhanishta','Shatabisha','Purvabhadra','Uttarabhadra','Revat'], key="star")  # add all star names
-        
+        planetary_position = st.text_input("Planetary Position" ,placeholder="please pressed enter key for the submition", key="planetary_position")
 
         # submit= st.form_submit_button("Submit")
 
