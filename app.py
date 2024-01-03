@@ -37,7 +37,7 @@ def save_data(data, filename="user_data.json"):
     try:
         with open(filename, "r") as file:
             existing_data = json.load(file)
-    except FileNotFoundError:
+    except (FileNotFoundError, json.JSONDecodeError):
         existing_data = []
 
     existing_data.append(data)
@@ -67,7 +67,7 @@ def main():
     st.title("User Information Form")
     file_name = "user_data.json"
     st.session_state.user_data_json = str(save_data_as_json(file_name))
-    user_data = save_data(file_name)
+    user_data = save_data_as_json(file_name)
 
     # st.json(user_data)
 
@@ -138,9 +138,11 @@ def main():
              st.warning("Please fill in all required fields.")
     # clear_form_fields()
     # st.rerun() 
-    if user_data:
+    if isinstance(user_data, list):
         df = pd.DataFrame(user_data)
         st.table(df)
+    else:
+        st.error("User data is not in the correct format.")
     try:
         with open("user_data.json", "r") as file:
             user_data_json_content = file.read()
