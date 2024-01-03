@@ -59,8 +59,9 @@ def main():
         st.session_state.gpt3_response=""
 
     if 'user_data.json' not in st.session_state:
-        file_name="user_data.json"
-        st.session_state.user_data_json = ""
+        file_name = "user_data.json"
+        st.session_state.user_data_json = save_data_as_json(file_name)
+
 
 
     st.title("User Information Form")
@@ -128,6 +129,7 @@ def main():
                     "horoscope_chart": encoded_horoscope_chart,
                     "star":star 
                 }
+            user_data = st.session_state.user_data_json
             save_data(user_data)
             st.success("Data Saved Successfully!")
 
@@ -136,8 +138,8 @@ def main():
              st.warning("Please fill in all required fields.")
     # clear_form_fields()
     # st.rerun() 
-    if save_data:
-        df=pd.DataFrame(user_data)
+    if user_data:
+        df = pd.DataFrame(user_data)
         st.table(df)
     try:
         with open("user_data.json", "r") as file:
