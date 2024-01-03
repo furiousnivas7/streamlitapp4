@@ -83,7 +83,7 @@ def main():
         horoscope_chart = st.file_uploader("Upload your horoscope chart", key="horoscope_chart")
         star = st.selectbox("Star", options=['Ashwini','Bharani','Krittika','Rohini','Mrighasira','Ardra','Punarvasu','Pushya','Ashlesha','Magha','Purva Phalguni','Uttara Phalguni','Hasta','Chitra','Swati','Vishaka','Anuradha','Jyestha','Moola','Purvashada','Uttarashada','Sharavan','Dhanishta','Shatabisha','Purvabhadra','Uttarabhadra','Revat'], key="star")  # add all star names
         planetary_position = st.text_input("Planetary Position" , key="planetary_position")
-        st.write("please pressed enter key for the submition")
+        st.text("please pressed enter key for the submition")
 
         # submit= st.form_submit_button("Submit")
 
