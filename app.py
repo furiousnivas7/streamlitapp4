@@ -1,5 +1,6 @@
 import streamlit as st
 import json
+import pandas as pd
 from datetime import datetime
 import os
 import openai
@@ -130,11 +131,14 @@ def main():
             save_data(user_data)
             st.success("Data Saved Successfully!")
 
-            
+            st.write(f"Hello{name}")
         else:
              st.warning("Please fill in all required fields.")
     # clear_form_fields()
     # st.rerun() 
+    if save_data:
+        df=pd.DataFrame(user_data)
+        st.table(df)
     try:
         with open("user_data.json", "r") as file:
             user_data_json_content = file.read()
