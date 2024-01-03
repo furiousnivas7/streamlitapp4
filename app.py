@@ -138,11 +138,11 @@ def main():
              st.warning("Please fill in all required fields.")
     # clear_form_fields()
     # st.rerun() 
-    if isinstance(user_data, list):
-        df = pd.DataFrame(user_data)
-        st.table(df)
-    else:
-        st.error("User data is not in the correct format.")
+    # if isinstance(user_data, list):
+    #     df = pd.DataFrame(user_data)
+    #     st.table(df)
+    # else:
+    #     st.error("User data is not in the correct format.")
     try:
         with open("user_data.json", "r") as file:
             user_data_json_content = file.read()
