@@ -51,6 +51,22 @@ def clear_form_fields():
     for key in list(st.session_state.keys()):
         del st.session_state[key]
 
+def match_profiles(user_prompt, user_data_json):
+    matched_profiles = []
+    user_data = json.loads(user_data_json)
+
+    for profile in user_data:
+        if (
+            user_prompt.lower() in profile["interest"].lower()
+            or user_prompt.lower() in profile["religion"].lower()
+            or user_prompt.lower() in profile["Planetary_position"].lower()
+            or user_prompt.lower() in profile["star"].lower()
+        ):
+            if user_data["gender"] != profile["gender"]:
+                matched_profiles.append(profile)
+
+    return matched_profiles
+
 # Streamlit app
 def main():
     if 'full_prompt' not in st.session_state:
@@ -134,6 +150,16 @@ def main():
             st.success("Data Saved Successfully!")
 
             st.write(f"Hello{name}")
+            matched_profiles = match_profiles(interest, st.session_state.user_data_json)
+            if matched_profiles:
+                st.subheader("Matching Profiles:")
+                for profile in matched_profiles:
+                    st.write(f"Name: {profile['name']}")
+                    st.write(f"Age: {profile['age']}")
+                    st.write(f"Gender: {profile['gender']}")
+                    # Add other profile information as needed
+            else:
+                st.info("No matching profiles found.")
         else:
              st.warning("Please fill in all required fields.")
     # clear_form_fields()
